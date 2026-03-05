@@ -1,0 +1,191 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: keycloak-shopease
+    ports:
+      - "8180:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: shopease-auth
+      KC_HOSTNAME_PORT: 8180
+      KC_HOSTNAME_STRICT: "false"
+      KC_SPI_COOKIES_HTTP_ONLY: "false"
+      KC_SPI_COOKIES_SAME_SITE: "Lax"
+      KC_SPI_COOKIES_SAME_SITE_LEGACY_FALLBACK: "Lax"
+      KC_SPI_COOKIES_SECURE: "false"
+      KC_SPI_HEADER_OPTIONS_FILTER_CSP: "default-src 'self' 'unsafe-inline' 'unsafe-eval' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' http://shopease-auth:8180 http://localhost:4200; frame-src 'self' http://shopease-auth:8180;"
+    volumes:
+      - ./keycloak/shopease-realm.json:/opt/keycloak/data/import/shopease-realm.json
+    command: start-dev --import-realm
+
+  config-server:
+    build: ./config-server
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: native
+      SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS: file:/config-repo
+    volumes:
+      - ./config-repo:/config-repo
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+    depends_on:
+      config-server:
+        condition: service_healthy
+    extra_hosts:
+      - "shopease-auth:host-gateway"
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: shopease_products
+      MYSQL_USER: shopease
+      MYSQL_PASSWORD: shopease123
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "shopease", "-pshopease123" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: shopease
+      RABBITMQ_DEFAULT_PASS: shopease123
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/shopease_products?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: shopease
+      SPRING_DATASOURCE_PASSWORD: shopease123
+    depends_on:
+      config-server:
+        condition: service_healthy
+      mysql-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/products" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    extra_hosts:
+      - "shopease-auth:host-gateway"
+
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    ports:
+      - "8082:8082"
+    environment:
+      PORT: 8082
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: shopease_orders
+      DB_USER: shopease
+      DB_PASSWORD: shopease123
+      KEYCLOAK_ISSUER_URI: http://shopease-auth:8180/realms/shopease
+      PRODUCT_SERVICE_URL: http://product-service:8081
+      EUREKA_ENABLED: "true"
+      EUREKA_APP_NAME: ORDER-SERVICE
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+      EUREKA_SERVICE_PATH: /eureka/apps/
+      EUREKA_INSTANCE_HOSTNAME: order-service
+      EUREKA_INSTANCE_IP: 127.0.0.1
+      EUREKA_INSTANCE_PORT: 8082
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: shopease
+      RABBITMQ_PASSWORD: shopease123
+      NODE_ENV: production
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    extra_hosts:
+      - "shopease-auth:host-gateway"
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      product-service:
+        condition: service_healthy
+      order-service:
+        condition: service_healthy
+    extra_hosts:
+      - "shopease-auth:host-gateway"

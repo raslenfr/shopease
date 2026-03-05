@@ -1,0 +1,50 @@
+<section class="order-form-page">
+    <!-- Success State -->
+    <div class="success-card" *ngIf="success">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Order Placed!</h2>
+        <p>Your order has been successfully placed. Redirecting to your orders...</p>
+    </div>
+
+    <!-- Form -->
+    <div class="form-card" *ngIf="!success">
+        <div class="form-header">
+            <a routerLink="/products" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <h1>Place Order</h1>
+        </div>
+
+        <div class="product-summary">
+            <div class="summary-icon"><i class="fas fa-box"></i></div>
+            <div>
+                <div class="summary-label">Product</div>
+                <div class="summary-value">{{ productName }}</div>
+            </div>
+            <div class="summary-price">${{ unitPrice | number:'1.2-2' }}</div>
+        </div>
+
+        <div class="form-group">
+            <label>Quantity</label>
+            <div class="qty-control">
+                <button type="button" class="qty-btn" (click)="quantity = quantity > 1 ? quantity - 1 : 1">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <input type="number" class="qty-input" [(ngModel)]="quantity" min="1" />
+                <button type="button" class="qty-btn" (click)="quantity = quantity + 1">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="total-row">
+            <span class="total-label">Total</span>
+            <span class="total-amount">${{ total | number:'1.2-2' }}</span>
+        </div>
+
+        <div *ngIf="errorMsg" class="alert alert-error">{{ errorMsg }}</div>
+
+        <button class="btn btn-primary btn-block" (click)="placeOrder()" [disabled]="isSubmitting">
+            <span *ngIf="!isSubmitting"><i class="fas fa-shopping-bag"></i> Confirm Order</span>
+            <span *ngIf="isSubmitting"><i class="fas fa-spinner fa-spin"></i> Placing...</span>
+        </button>
+    </div>
+</section>

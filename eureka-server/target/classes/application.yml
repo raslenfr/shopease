@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: eureka-server
+  config:
+    # Modern Spring Boot 3 approach to fetch remote config
+    import: "optional:configserver:http://config-server:8888"
+  cloud:
+    config:
+      fail-fast: true

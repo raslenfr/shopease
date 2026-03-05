@@ -1,0 +1,47 @@
+<div class="app-shell">
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a routerLink="/" class="brand">
+        <span class="brand-accent">Shop</span>Ease
+      </a>
+
+      <div class="nav-links">
+        <a routerLink="/products" routerLinkActive="active" class="nav-link">
+          <i class="fas fa-th-large"></i> Catalog
+        </a>
+        <a *ngIf="isLoggedIn" routerLink="/orders" routerLinkActive="active" class="nav-link">
+          <i class="fas fa-receipt"></i> Orders
+        </a>
+      </div>
+
+      <div class="nav-auth">
+        <ng-container *ngIf="isLoggedIn; else loginBtn">
+          <div class="user-info">
+            <span class="user-greeting">Hello, <strong>{{ username }}</strong></span>
+            <button (click)="logout()" class="btn btn-sm btn-outline btn-logout">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #loginBtn>
+          <button (click)="login()" class="btn btn-primary">
+            <i class="fas fa-user"></i> Sign In
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main view -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 ShopEase Platform. Distributed University Project.</p>
+    </div>
+  </footer>
+</div>

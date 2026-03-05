@@ -1,0 +1,207 @@
+{
+  "realm": "shopease",
+  "enabled": true,
+  "displayName": "raslen ferchichi",
+  "displayNameHtml": "<strong>raslen</strong> ferchichi",
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "offlineSessionIdleTimeout": 2592000,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+
+  "roles": {
+    "realm": [
+      {
+        "name": "ROLE_USER",
+        "description": "Standard user — can browse products and place orders",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "ROLE_ADMIN",
+        "description": "Administrator — full access to product management and all orders",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+
+  "clients": [
+    {
+      "clientId": "shopease-angular",
+      "name": "ShopEase Angular Frontend",
+      "description": "Public client for the Angular SPA — uses Authorization Code + PKCE",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "protocol": "openid-connect",
+
+      "rootUrl": "http://localhost:4200",
+      "baseUrl": "/",
+      "redirectUris": [
+        "http://localhost:4200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200"
+      ],
+      "adminUrl": "http://localhost:4200",
+
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4200/*",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "login_theme": "",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "clientId": "shopease-gateway",
+      "name": "ShopEase API Gateway",
+      "description": "Confidential client for the Spring Cloud API Gateway — validates JWT tokens",
+      "enabled": true,
+      "publicClient": false,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": true,
+      "protocol": "openid-connect",
+      "secret": "shopease-gateway-secret",
+
+      "rootUrl": "http://localhost:8080",
+      "baseUrl": "/",
+      "redirectUris": [
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8080"
+      ],
+
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:8080/*",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    }
+  ],
+
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice@shopease.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ROLE_USER",
+        "default-roles-shopease"
+      ]
+    },
+    {
+      "username": "raslen",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Raslen",
+      "lastName": "Ferchichi",
+      "email": "raslen@shopease.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "raslenferchichi",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ROLE_USER",
+        "default-roles-shopease"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "ShopEase",
+      "email": "admin@shopease.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ROLE_ADMIN",
+        "default-roles-shopease"
+      ]
+    }
+  ],
+
+  "scopeMappings": [],
+  "clientScopeMappings": {},
+  "defaultDefaultClientScopes": [
+    "web-origins",
+    "acr",
+    "profile",
+    "roles",
+    "email"
+  ],
+  "defaultOptionalClientScopes": [
+    "address",
+    "phone",
+    "offline_access",
+    "microprofile-jwt"
+  ]
+}

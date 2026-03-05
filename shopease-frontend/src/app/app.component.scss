@@ -1,0 +1,134 @@
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #0f111a;
+    color: #fff;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26, 29, 46, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    height: 70px;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: -0.02em;
+
+    .brand-accent {
+        color: #667eea;
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 3rem;
+    flex: 1;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &.active {
+        color: #667eea;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #667eea;
+            border-radius: 3px 3px 0 0;
+        }
+    }
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .user-greeting {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+
+        strong {
+            color: #fff;
+        }
+    }
+}
+
+.main-content {
+    flex: 1;
+    background: radial-gradient(circle at top right, rgba(102, 126, 234, 0.05), transparent 400px),
+        radial-gradient(circle at bottom left, rgba(118, 75, 162, 0.05), transparent 400px);
+}
+
+.footer {
+    padding: 3rem 2rem;
+    background: #0a0c14;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+
+    p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.85rem;
+    }
+}
+
+.btn-logout:hover {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border-color: #ff4757;
+}
+
+// Green button styling
+.btn-primary {
+    background: #2ed573 !important;
+    color: #000 !important;
+    border-color: #2ed573 !important;
+
+    &:hover {
+        background: #27a456 !important;
+        border-color: #27a456 !important;
+    }
+
+    &:disabled {
+        background: #999 !important;
+        opacity: 0.6;
+    }
+}

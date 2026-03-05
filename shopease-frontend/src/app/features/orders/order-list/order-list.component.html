@@ -1,0 +1,58 @@
+<section class="orders-page">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">{{ isAdmin ? 'All Orders' : 'My Orders' }}</h1>
+            <p class="page-subtitle">{{ isAdmin ? 'Manage all customer orders' : 'Track your order history' }}</p>
+        </div>
+    </div>
+
+    <div *ngIf="errorMsg" class="alert alert-error">{{ errorMsg }}</div>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading orders...</p>
+    </div>
+
+    <div *ngIf="!isLoading && orders.length === 0 && !errorMsg" class="empty-state">
+        <i class="fas fa-receipt empty-icon"></i>
+        <p>No orders yet. <a routerLink="/products">Browse products</a></p>
+    </div>
+
+    <div class="orders-list" *ngIf="!isLoading && orders.length > 0">
+        <div class="order-card" *ngFor="let order of orders">
+            <div class="order-header">
+                <div class="order-id">
+                    <span class="order-label">Order</span>
+                    <span class="order-num">#{{ order.id }}</span>
+                </div>
+                <div class="order-date">{{ order.createdAt | date:'MMM d, y' }}</div>
+                <div class="status-badge" [style.background]="statusColor(order.status!) + '22'"
+                    [style.color]="statusColor(order.status!)">
+                    {{ order.status }}
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="item-row" *ngFor="let item of order.items">
+                    <span class="item-name">{{ item.productName }}</span>
+                    <span class="item-qty">×{{ item.quantity }}</span>
+                    <span class="item-price">${{ (item.unitPrice * item.quantity) | number:'1.2-2' }}</span>
+                </div>
+            </div>
+
+            <div class="order-footer">
+                <div class="order-total">Total: <strong>${{ getOrderTotal(order) | number:'1.2-2' }}</strong></div>
+                <div class="admin-actions" *ngIf="isAdmin">
+                    <select class="status-select" (change)="updateStatus(order.id!, $any($event.target).value)"
+                        [value]="order.status">
+                        <option value="PENDING">Pending</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="SHIPPED">Shipped</option>
+                        <option value="DELIVERED">Delivered</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

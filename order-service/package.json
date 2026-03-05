@@ -1,0 +1,37 @@
+{
+  "name": "order-service",
+  "version": "1.0.0",
+  "description": "Order Microservice for ShopEase - Node.js Express API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "microservice",
+    "express",
+    "sequelize",
+    "postgresql",
+    "shopease"
+  ],
+  "author": "ShopEase Team",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "axios": "^1.6.5",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "eureka-js-client": "^4.5.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.35.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,111 @@
+<section class="products-page">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">products</h1>
+            <p class="page-subtitle">Premium gadgets for your digital lifestyle</p>
+        </div>
+        <button class="btn btn-primary" *ngIf="isAdmin" (click)="openCreate()">
+            <i class="fas fa-plus"></i> Add Product
+        </button>
+    </div>
+
+    <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search by name or description..." 
+               [(ngModel)]="searchTerm" (input)="onSearch()">
+    </div>
+
+    <div *ngIf="errorMsg" class="alert alert-error">{{ errorMsg }}</div>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading catalog...</p>
+    </div>
+
+    <div *ngIf="!isLoading && filteredProducts.length === 0" class="empty-state">
+        <i class="fas fa-box-open empty-icon"></i>
+        <p>No products found matching your search.</p>
+    </div>
+
+    <div class="product-grid" *ngIf="!isLoading && filteredProducts.length > 0">
+        <div class="product-card" *ngFor="let product of filteredProducts">
+            <div class="card-badge" [class.out-of-stock]="product.stock === 0">
+                {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+            </div>
+            
+            <div class="card-body">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description }}</p>
+                
+                <div class="product-meta">
+                    <span class="product-price">${{ product.price | number:'1.2-2' }}</span>
+                    <span class="product-stock">
+                        <i class="fas fa-cubes"></i> {{ product.stock }} left
+                    </span>
+                </div>
+            </div>
+
+            <div class="card-actions">
+                <ng-container *ngIf="isAdmin; else userActions">
+                    <button class="btn btn-icon" (click)="openEdit(product)" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-icon btn-danger" (click)="deleteProduct(product.id!)" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="btn btn-primary btn-block" [disabled]="product.stock === 0" 
+                            [routerLink]="['/orders/new']" 
+                            [queryParams]="{ productId: product.id, productName: product.name, price: product.price }">
+                        Buy Now
+                    </button>
+                </ng-container>
+                <ng-template #userActions>
+                    <button class="btn btn-primary btn-block" [disabled]="product.stock === 0"
+                            [routerLink]="['/orders/new']" 
+                            [queryParams]="{ productId: product.id, productName: product.name, price: product.price }">
+                        Add to Cart
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal for Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>{{ isEditing ? 'Edit Product' : 'Add New Product' }}</h2>
+            <button class="modal-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form (ngSubmit)="saveProduct()">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="modalProduct.name" required placeholder="e.g. iPhone 15 Pro">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" [(ngModel)]="modalProduct.description" rows="3" placeholder="Describe the product details..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price ($)</label>
+                        <input type="number" class="form-control" name="price" [(ngModel)]="modalProduct.price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Initial Stock</label>
+                        <input type="number" class="form-control" name="stock" [(ngModel)]="modalProduct.stock" required>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn" (click)="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        {{ isEditing ? 'Save Changes' : 'Create Product' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

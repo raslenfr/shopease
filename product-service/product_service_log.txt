@@ -1,0 +1,96 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.shopease:product-service >--------------------
+[INFO] Building product-service 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ product-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ product-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ product-service ---
+[INFO] Changes detected - recompiling the module! :input tree
+[INFO] Compiling 7 source files with javac [debug release 17] to target\classes
+[INFO] /C:/Users/MSI/.gemini/antigravity/scratch/shopease/product-service/src/main/java/com/shopease/product/config/KeycloakRoleConverter.java: C:\Users\MSI\.gemini\antigravity\scratch\shopease\product-service\src\main\java\com\shopease\product\config\KeycloakRoleConverter.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/MSI/.gemini/antigravity/scratch/shopease/product-service/src/main/java/com/shopease/product/config/KeycloakRoleConverter.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ product-service ---
+[INFO] skip non existing resourceDirectory C:\Users\MSI\.gemini\antigravity\scratch\shopease\product-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ product-service ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ product-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ product-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-02-23T07:44:47.846+01:00  INFO 29380 --- [product-service] [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2026-02-23T07:44:48.043+01:00  INFO 29380 --- [product-service] [           main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=product-service, profiles=[default], label=null, version=null, state=null
+2026-02-23T07:44:48.045+01:00  INFO 29380 --- [product-service] [           main] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-file:../config-repo/product-service.yml'}, BootstrapPropertySource {name='bootstrapProperties-file:../config-repo/application.yml'}]
+2026-02-23T07:44:48.061+01:00  INFO 29380 --- [product-service] [           main] c.s.product.ProductServiceApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-23T07:44:48.749+01:00  INFO 29380 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-23T07:44:48.959+01:00  INFO 29380 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 194 ms. Found 1 JPA repository interface.
+2026-02-23T07:44:49.282+01:00  INFO 29380 --- [product-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=3635986f-ab69-3c87-8619-7ebdebb73034
+2026-02-23T07:44:49.445+01:00  WARN 29380 --- [product-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-02-23T07:44:49.447+01:00  WARN 29380 --- [product-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-02-23T07:44:49.800+01:00  INFO 29380 --- [product-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-02-23T07:44:49.817+01:00  INFO 29380 --- [product-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-23T07:44:49.818+01:00  INFO 29380 --- [product-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-02-23T07:44:49.906+01:00  INFO 29380 --- [product-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-23T07:44:49.907+01:00  INFO 29380 --- [product-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1828 ms
+2026-02-23T07:44:50.102+01:00  INFO 29380 --- [product-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-23T07:44:50.220+01:00  INFO 29380 --- [product-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-23T07:44:50.275+01:00  INFO 29380 --- [product-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-23T07:44:50.612+01:00  INFO 29380 --- [product-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-23T07:44:50.654+01:00  INFO 29380 --- [product-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-23T07:44:51.219+01:00  INFO 29380 --- [product-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@103478b8
+2026-02-23T07:44:51.222+01:00  INFO 29380 --- [product-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-23T07:44:51.357+01:00  WARN 29380 --- [product-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-23T07:44:52.949+01:00  INFO 29380 --- [product-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-23T07:44:53.127+01:00  INFO 29380 --- [product-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-23T07:44:53.493+01:00  WARN 29380 --- [product-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-23T07:44:53.950+01:00  INFO 29380 --- [product-service] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e196238, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f45be6f, org.springframework.security.web.context.SecurityContextHolderFilter@4d9ad37e, org.springframework.security.web.header.HeaderWriterFilter@705ebb4d, org.springframework.web.filter.CorsFilter@65384249, org.springframework.security.web.authentication.logout.LogoutFilter@475fb7, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@20c55658, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e8426aa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@752573df, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6441db2c, org.springframework.security.web.access.ExceptionTranslationFilter@4af0ae2c, org.springframework.security.web.access.intercept.AuthorizationFilter@73f6ffb1]
+2026-02-23T07:44:54.816+01:00  INFO 29380 --- [product-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-02-23T07:44:54.868+01:00  WARN 29380 --- [product-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-02-23T07:44:54.915+01:00  INFO 29380 --- [product-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-02-23T07:44:55.029+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-02-23T07:44:55.038+01:00  INFO 29380 --- [product-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-02-23T07:44:55.072+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-02-23T07:44:55.710+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-02-23T07:44:55.713+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-02-23T07:44:55.717+01:00  INFO 29380 --- [product-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-02-23T07:44:55.724+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1771829095722 with initial instances count: 0
+2026-02-23T07:44:55.728+01:00  INFO 29380 --- [product-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PRODUCT-SERVICE with eureka with status UP
+2026-02-23T07:44:55.729+01:00  INFO 29380 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1771829095729, current=UP, previous=STARTING]
+2026-02-23T07:44:55.735+01:00  INFO 29380 --- [product-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/host.docker.internal:product-service:8081: registering service...
+2026-02-23T07:44:55.771+01:00  INFO 29380 --- [product-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-02-23T07:44:55.772+01:00  INFO 29380 --- [product-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8081
+2026-02-23T07:44:55.869+01:00  INFO 29380 --- [product-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/host.docker.internal:product-service:8081 - registration status: 204
+2026-02-23T07:44:55.995+01:00  INFO 29380 --- [product-service] [           main] c.s.product.ProductServiceApplication    : Started ProductServiceApplication in 9.905 seconds (process running for 10.415)
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-02-23T07:45:25.714+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-02-23T07:45:25.734+01:00  INFO 29380 --- [product-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
