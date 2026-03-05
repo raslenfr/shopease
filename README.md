@@ -4,6 +4,8 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18-green)](https://nodejs.org/)
 [![Angular](https://img.shields.io/badge/Angular-19-red)](https://angular.io/)
 [![Keycloak](https://img.shields.io/badge/Keycloak-24.0-blue)](https://www.keycloak.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql)](https://www.mysql.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)](https://www.postgresql.org/)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3-orange)](https://www.rabbitmq.com/)
 [![Docker](https://img.shields.io/badge/Docker-✔️-blue)](https://www.docker.com/)
 
