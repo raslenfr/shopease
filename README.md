@@ -467,5 +467,5 @@ docker-compose up --build
 
 ---
 
-**Made with ❤️ by Raslen Ferchichi**  
+**Made with  by Raslen Ferchichi ❤️** 
 *Demonstrating modern microservices architecture in action* 🚀
